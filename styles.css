@@ -1,16 +1,63 @@
 body {
   background-color: #e6ecf0;
   font: 14px/18px "Helvetica", sans-serif;
-
+  height: 100%;
+  margin: 0px;
+  padding: 0px;
 }
 
 div {
+  background-color: #ffffff;
   margin: 0px;
   padding: 0px;
 }
 
 p {
   margin: 0px;
+}
+
+#container {
+  postion: relative;
+  background-color: red;
+  width: 1200px;
+  height: 100%;
+  margin: 0px auto;
+  padding-bottom: 2px;
+}
+
+#header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  border-bottom: 1px solid #a5a5a5;
+  height: 50px;
+  width: 100%;
+  min-width: 1200px;
+}
+
+#leftsidebar, #rightsidebar, #timeline {
+  margin: 60px 0px;
+}
+
+#leftsidebar {
+  background-color: orange;
+  width: 300px;
+  height: 300px;
+  float: left;
+}
+
+#rightsidebar {
+  background-color: orange;
+  width: 300px;
+  height: 300px;
+  float: left;
+}
+
+#timeline {
+  background-color: transparent;
+  width: 550px;
+  padding-bottom: 2px;
+  float: left;
 }
 
 .username {
@@ -21,11 +68,16 @@ p {
   color: #b0b0b0;
 }
 
-
-
 .tweet {
-  background-color: #ffffff;
-  width: 550px;
+  /*width: 550px;*/
+  border-bottom: 1px solid #e6ecf0;
   padding: 10px;
-  margin: 1px 10px;
+  margin: 1px auto;
+}
+
+#twit {
+  position: relative;
+  top: 12px;
+  left: 50%;
+  margin-left: -13px;
 }
