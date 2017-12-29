@@ -37,6 +37,12 @@ p {
 
 #leftsidebar, #rightsidebar, #timeline {
   margin: 60px 0px;
+  padding: 0px;
+}
+
+#leftsidebar > div, #rightsidebar > div {
+  width: 280px;
+  margin: 0px 10px 10px;
 }
 
 #leftsidebar {
@@ -60,6 +66,21 @@ p {
   float: left;
 }
 
+#activeuser {
+  background-color: red;
+  height: 200px;
+}
+
+#trending {
+  background-color: yellow;
+  height: 400px;
+}
+
+#followrecs {
+  background-color: green;
+  height: 300px;
+}
+
 .username {
   font-weight: bold;
 }
@@ -69,22 +90,12 @@ a:visited {color: purple;}
 a:hover {color: red;}
 a:active {color: yellow;}
 
-.username a:link {
+.username a:link, .username a:visited {
   color: #000000;
   text-decoration: none;
 }
 
-.username a:visited {
-  color: #000000;
-  text-decoration: none;
-}
-
-.username a:hover {
-  color: #1DA1F2;
-  text-decoration: underline;
-}
-
-.username a:active {
+.username a:hover, .username a:active {
   color: #1DA1F2;
   text-decoration: underline;
 }
@@ -104,5 +115,5 @@ a:active {color: yellow;}
   position: relative;
   top: 12px;
   left: 50%;
-  margin-left: -13px;
+  margin-left: -40px;
 }
