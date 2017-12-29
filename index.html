@@ -18,23 +18,51 @@
 
     <script>
 
-      $(document).ready(function(){
+      $(document).ready(function() {
         var $body = $('body');
-        //$body.html('');
-
         var index = streams.home.length - 1;
-        while(index >= 0){
+        while(index >= 0) {
           var tweet = streams.home[index];
-          var $tweet = $('<div class=\'tweet\'><p><span class=\'username\'>' + tweet.user + '</span><span class=\'handle\'> @' + tweet.user + '</span>' +
-            '<span class=\'timestamp\'>' + ' \xB7 ' + tweet.created_at + '</span></br><span>' + tweet.message + '</span></p></div>');
-          //$tweet.text('@' + tweet.user + ': ' + tweet.message + '\xB7' + tweet.created_at);
-          //$tweet.appendTo($body);
-          //$body.find('#timeline').appendTo($tweet);
+          var $tweet = $('<div class=\'tweet\'><p><span class=\'username\'><a href=\'#\'>' + 
+            tweet.user + '</a></span><span class=\'handle\'> @' + tweet.user + '</span>' +
+            '<span class=\'timestamp\'>' + ' \xB7 ' + tweet.created_at + '</span></br><span>' + 
+            tweet.message + '</span></p></div>');
           $tweet.appendTo(($body).find('#timeline'));
-
-
           index -= 1;
         }
+
+        $('.username').on('click', function() {
+          alert($(this).text());
+          var user = $(this).text();
+          $('#timeline').children().remove();
+          var index = streams.users[user].length - 1;
+          while(index >= 0) {
+            var tweet = streams.users[user][index];
+            var $tweet = $('<div class=\'tweet\'><p><span class=\'username\'><a href=\'#\'>' + 
+            tweet.user + '</a></span><span class=\'handle\'> @' + tweet.user + '</span>' +
+            '<span class=\'timestamp\'>' + ' \xB7 ' + tweet.created_at + '</span></br><span>' + 
+            tweet.message + '</span></p></div>');
+          $tweet.appendTo(($body).find('#timeline'));
+          index -= 1;
+          }
+             //var timeline = $body.find('#timeline');
+             //timeline.children.remove();
+             // var tweet = $(this).closest('.tweet');
+             // var user = tweet.user;
+             // alert(user);
+             // timeline.remove('.tweet');
+             // var index = streams.users[user].length - 1;
+             // while(index >= 0) {
+             //   var $tweet = $('<div class=\'tweet\'><p><span class=\'username\'><a href=\'#\'>' + 
+             //   tweet.user + '</a></span><span class=\'handle\'> @' + tweet.user + '</span>' +
+             //   '<span class=\'timestamp\'>' + ' \xB7 ' + tweet.created_at + '</span></br><span>' + 
+             //   tweet.message + '</span></p></div>');
+             // $tweet.appendTo(($body).find('#timeline'));
+             // index -= 1;
+        });
+
+         
+       // };
 
       });
 
