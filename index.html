@@ -12,8 +12,8 @@
           <div id="me">me</div>
           <div id="photo">photo</div>
           <div id="identity">
-            <h3 id="identity-name">username</h3>
-            <p id="identity-handle">@handle</p>
+            <h3 id="identity-name" text='username'>yourstruly</h3>
+            <p id="identity-handle">@yourstruly</p>
           </div>
         </div>
         <div id="trending">trends for you</div>
@@ -24,16 +24,23 @@
         <div id="followrecs">who to follow</div>
       </div>
       <div id="header">
-        <img id="twit" src="graphics/twit-sm.png">
+        <div id="navigation">
+          <div id="home-button" class="nav-button">
+            <img id="home" src="graphics/home.png">
+            <p>Home</p>
+          </div>
+          <img id="twit" src="graphics/twit-sm.png">
+        </div>
       </div>
     </div>
 
 
     <script>
+
       var loadTweets = function(user) {
         var $body = $('body');
         $('#timeline').children().remove();
-        $('#timeline').append('<button type="button" id="refresh">See new Twittles<\/button>')
+        $('#timeline').append('<button type="button" id="refresh">See new Tweetles<\/button>')
         var stream;
         user === undefined ? stream = streams.home : stream = streams.users[user];
         var index = stream.length - 1;
@@ -47,14 +54,39 @@
           index -= 1;
         }
       };
+
+      // update identity panel to display owner of current timeline
+      var switchIdentity = function(user) {
+        var idName = $(document).find('#identity-name').text(user);
+        $(document).find('#identity-handle').text('@' + user);
+      }
+
+      $('#twit').on('mouseenter', function() {
+        $(this).css('cursor', 'pointer');
+      });
  
       $('#twit').on('click', function() {
         loadTweets();
       });
 
+      $('.nav-button').on('mouseenter', function() {
+        $(this).css('cursor', 'pointer');
+      });
+
+      $('#home-button').on('click', function() {
+        loadTweets();
+      });
+
+      // display clicked user's timeline
       $(document).on('click', '.username', function() {
         var user = $(this).text();
-        //alert(user);
+        switchIdentity(user);
+        loadTweets(user);
+      });
+
+      $(document).on('click', '.handle', function() {
+        var user = $(this).closest('.tweet').find('.username').text(); 
+        switchIdentity(user);
         loadTweets(user);
       });
 

@@ -17,12 +17,12 @@ p {
 }
 
 #container {
-  postion: relative;
-  background-color: red;
-  width: 1200px;
+  position: relative;
+  background-color: transparent;
+  width: 1250px;
   height: 100%;
   margin: 0px auto;
-  padding-bottom: 2px;
+  padding: 0px 0px 2px 36px;
 }
 
 #header {
@@ -30,51 +30,84 @@ p {
   top: 0;
   left: 0;
   border-bottom: 1px solid #a5a5a5;
-  height: 50px;
+  height: 45px;
   width: 100%;
-  min-width: 1200px;
+  min-width: 1284px;
   z-index: 2;
 }
 
+#navigation {
+  position: relative;
+  top: 0px;
+  width: 1189px;
+  height: 100%;
+  margin: 0px auto;
+  padding: 0px;
+
+}
+
+.nav-button {
+  height: 43px;
+  margin: 0px;
+  padding: 0px 20px;
+  float: left;
+  border-bottom: 2px solid #1da1f2;
+}
+
+.nav-button p {
+  float: left;
+  color: #1da1f2;
+  font-weight: bold;
+  font-size: 0.95em;
+  position: relative;
+  top: 12px;
+  margin: auto 0px auto 5px;
+}
+
+#home {
+  float: left;
+  margin: 10px 0px;
+}
+
 #leftsidebar, #rightsidebar, #timeline {
-  margin: 60px 0px;
+  margin: 55px 0px;
   padding: 0px;
 }
 
 #leftsidebar > div, #rightsidebar > div {
-  width: 280px;
-  margin: 0px 10px 10px;
+  width: 288px;
+  margin: 0px 12px 12px;
 }
 
 #leftsidebar {
   background-color: transparent;
-  width: 300px;
+  width: 312px;
   height: 300px;
   float: left;
 }
 
 #rightsidebar {
   background-color: transparent;
-  width: 300px;
+  width: 312px;
   height: 300px;
   float: left;
 }
 
 #timeline {
   background-color: transparent;
-  width: 550px;
+  width: 588px;
   padding-bottom: 2px;
   float: left;
 }
 
 #refresh {
-    background-color: #f2f5f6;
-    border: none;
-    color: #1DA1F2;
-    height: 45px;
-    font-size: 1em;
-    text-align: center;
-    width: 100%;
+  background-color: #f2f5f6;
+  border: none;
+  color: #1DA1F2;
+  height: 45px;
+  font-size: 1em;
+  text-align: center;
+  width: 100%;
 }
 
 #refresh:hover {
@@ -129,11 +162,6 @@ p {
   font-weight: bold;
 }
 
-a:link {color: blue;}
-a:visited {color: purple;}
-a:hover {color: red;}
-a:active {color: yellow;}
-
 .username a:link, .username a:visited {
   color: #000000;
   text-decoration: none;
@@ -149,8 +177,9 @@ a:active {color: yellow;}
 }
 
 .tweet {
-  /*width: 550px;*/
+  width: 568px;
   border-bottom: 1px solid #e6ecf0;
+  float: left;
   padding: 10px;
   margin: 1px auto;
 }
@@ -160,8 +189,8 @@ a:active {color: yellow;}
 }
 
 #twit {
-  position: relative;
-  top: 12px;
+  position: absolute;
+  top: 10px;
   left: 50%;
-  margin-left: -40px;
+  margin-left: -12px;
 }
