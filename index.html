@@ -57,7 +57,11 @@
 
       // update identity panel to display owner of current timeline
       var switchIdentity = function(user) {
-        var idName = $(document).find('#identity-name').text(user);
+        if(!user) {
+          $(document).find('#identity-name').text('yourstruly');
+          $(document).find('#identity-handle').text('@yourstruly');
+        }
+        $(document).find('#identity-name').text(user);
         $(document).find('#identity-handle').text('@' + user);
       }
 
@@ -66,6 +70,7 @@
       });
  
       $('#twit').on('click', function() {
+        switchIdentity();
         loadTweets();
       });
 
@@ -74,6 +79,7 @@
       });
 
       $('#home-button').on('click', function() {
+        switchIdentity();
         loadTweets();
       });
 
@@ -92,6 +98,7 @@
 
       $(document).ready(function() {
         var $body = $('body');
+        switchIdentity();
         loadTweets();
       });
 
