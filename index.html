@@ -9,10 +9,10 @@
     <div id="container">
         <div id="leftsidebar">
         <div id="activeuser">
-          <div id="me">me</div>
+          <div id="me"><img id="big-avatar" src="graphics/yourstruly.jpg"></div>
           <div id="photo">photo</div>
           <div id="identity">
-            <h3 id="identity-name" text='username'>yourstruly</h3>
+            <h3 id="identity-name">yourstruly</h3>
             <p id="identity-handle">@yourstruly</p>
           </div>
         </div>
@@ -46,10 +46,9 @@
         var index = stream.length - 1;
         while(index >= 0) {
           var tweet = stream[index];
-          var $tweet = $('<div class="tweet"><p><span class="username"><a href="#">' + 
-            tweet.user + '<\/a><\/span><span class="handle"> @' + tweet.user + '<\/span>' +
+          var $tweet = $('<div class="tweet"><div class="avatar"><img src="graphics/' + tweet.user + '.jpg"></div><div class="tweet-content"><p><span class="username"><a href="#">' +tweet.user + '<\/a><\/span><span class="handle"> @' + tweet.user + '<\/span>' +
             '<span class="timestamp">' + ' \xB7 ' + tweet.created_at + '<\/span><\/br><span>' + 
-            tweet.message + '<\/span><\/p><\/div>');
+            tweet.message + '<\/span><\/p><\/div><\/div>');
           $tweet.appendTo(($body).find('#timeline'));
           index -= 1;
         }
@@ -58,11 +57,14 @@
       // update identity panel to display owner of current timeline
       var switchIdentity = function(user) {
         if(!user) {
-          $(document).find('#identity-name').text('yourstruly');
-          $(document).find('#identity-handle').text('@yourstruly');
+          user = 'yourstruly';
+          // $(document).find('#identity-name').text('yourstruly');
+          // $(document).find('#identity-handle').text('@yourstruly');
+          // $(document).find('#big-avatar').attr('src', 'graphics/yourstruly.jpg');
         }
         $(document).find('#identity-name').text(user);
         $(document).find('#identity-handle').text('@' + user);
+        $(document).find('#big-avatar').attr('src', 'graphics/' + user + '.jpg');
       }
 
       $('#twit').on('mouseenter', function() {
