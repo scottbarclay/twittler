@@ -38,8 +38,10 @@
     <script>
 
       var loadTweets = function(user) {
+        user === 'yourstruly' ? user = undefined : user = user;
         var $body = $('body');
         $('#timeline').children().remove();
+        //$('#timeline').append('<button type="button" id="refresh">See new Tweetles<\/button>')
         $('#timeline').append('<button type="button" id="refresh">See new Tweetles<\/button>')
         var stream;
         user === undefined ? stream = streams.home : stream = streams.users[user];
@@ -83,6 +85,15 @@
       $('#home-button').on('click', function() {
         switchIdentity();
         loadTweets();
+      });
+
+      $('#timeline').on('mouseenter', '#refresh', function() {
+        $(this).css('cursor', 'pointer');
+      });
+
+      $('#timeline').on('click', '#refresh', function() {
+        var user = $('#identity-name').text();
+        loadTweets(user);
       });
 
       // display clicked user's timeline
