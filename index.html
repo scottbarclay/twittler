@@ -3,6 +3,7 @@
   <head>
     <link rel="stylesheet" href="styles.css">
     <script src="jquery.js"></script>
+    <script src="moment.min.js"></script>
     <script src="data_generator.js"></script>
   </head>
   <body>
@@ -41,15 +42,16 @@
         user === 'yourstruly' ? user = undefined : user = user;
         var $body = $('body');
         $('#timeline').children().remove();
-        //$('#timeline').append('<button type="button" id="refresh">See new Tweetles<\/button>')
         $('#timeline').append('<button type="button" id="refresh">See new Tweetles<\/button>')
         var stream;
         user === undefined ? stream = streams.home : stream = streams.users[user];
         var index = stream.length - 1;
         while(index >= 0) {
           var tweet = stream[index];
-          var $tweet = $('<div class="tweet"><div class="avatar"><img src="graphics/' + tweet.user + '.jpg"></div><div class="tweet-content"><p><span class="username"><a href="#">' +tweet.user + '<\/a><\/span><span class="handle"> @' + tweet.user + '<\/span>' +
-            '<span class="timestamp">' + ' \xB7 ' + tweet.created_at + '<\/span><\/br><span>' + 
+          // friendly relative dates
+          var relDate = moment(tweet.created_at).fromNow();
+          var $tweet = $('<div class="tweet"><div class="avatar"><img src="graphics/' + tweet.user + '.jpg"></div><div class="tweet-content"><p><span class="username"><a href="#">' + tweet.user + '<\/a><\/span><span class="handle"> @' + tweet.user + '<\/span>' +
+            '<span class="timestamp">' + ' \xB7 ' + relDate + '<\/span><\/br><span>' + 
             tweet.message + '<\/span><\/p><\/div><\/div>');
           $tweet.appendTo(($body).find('#timeline'));
           index -= 1;
@@ -60,9 +62,6 @@
       var switchIdentity = function(user) {
         if(!user) {
           user = 'yourstruly';
-          // $(document).find('#identity-name').text('yourstruly');
-          // $(document).find('#identity-handle').text('@yourstruly');
-          // $(document).find('#big-avatar').attr('src', 'graphics/yourstruly.jpg');
         }
         $(document).find('#identity-name').text(user);
         $(document).find('#identity-handle').text('@' + user);
