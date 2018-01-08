@@ -11,13 +11,17 @@
         <div id="leftsidebar">
         <div id="activeuser">
           <div id="me"><img id="big-avatar" src="graphics/yourstruly.jpg"></div>
-          <div id="photo">photo</div>
+          <div id="photo"><img id="identity-bg" src="graphics/yourstrulyBG.jpg"></div>
           <div id="identity">
             <h3 id="identity-name">yourstruly</h3>
             <p id="identity-handle">@yourstruly</p>
           </div>
         </div>
-        <div id="trending">trends for you</div>
+        <div id="trending">
+          <div class="sidebar-content">
+            <h3>Trends for you</h3>
+          </div>
+        </div>
       </div>
       <div id="timeline">
       </div>
@@ -42,7 +46,7 @@
         user === 'yourstruly' ? user = undefined : user = user;
         var $body = $('body');
         $('#timeline').children().remove();
-        $('#timeline').append('<button type="button" id="refresh">See new Tweetles<\/button>')
+        $('#timeline').append('<button type="button" id="refresh">See new Tweetles<\/button>');
         var stream;
         user === undefined ? stream = streams.home : stream = streams.users[user];
         var index = stream.length - 1;
@@ -50,12 +54,38 @@
           var tweet = stream[index];
           // friendly relative dates
           var relDate = moment(tweet.created_at).fromNow();
+          // handle hashtags and mentions
+          var formattedMessage = formatMessage(tweet.message);
           var $tweet = $('<div class="tweet"><div class="avatar"><img src="graphics/' + tweet.user + '.jpg"></div><div class="tweet-content"><p><span class="username"><a href="#">' + tweet.user + '<\/a><\/span><span class="handle"> @' + tweet.user + '<\/span>' +
             '<span class="timestamp">' + ' \xB7 ' + relDate + '<\/span><\/br><span>' + 
-            tweet.message + '<\/span><\/p><\/div><\/div>');
+            formattedMessage + '<\/span><\/p><\/div><\/div>');
           $tweet.appendTo(($body).find('#timeline'));
           index -= 1;
         }
+      };
+
+      var formatMessage = function(message) {
+        var formattedMsg = '';
+        var hashtagPrefix = '<\/span><span class="hashtag"><a href="#">';
+        var mentionPrefix = '<\/span><span class="mention"><a href="#">';
+        var suffix = '<\/a><\/span>';
+        if(!message.includes('#') && !message.includes('@')) {
+          return message;
+        } else {
+          var msgArray = message.split(' ');
+          for(var i = 0; i < msgArray.length; i++) {
+            var word = msgArray[i];
+            if(word.startsWith('#')) {
+              var hashWord = hashtagPrefix + word + suffix;
+              msgArray.splice(i, 1, hashWord);              
+            } else if(word.startsWith('@')) {
+              var mentionWord = mentionPrefix + word + suffix;
+              msgArray.splice(i, 1, mentionWord);
+            }            
+          }
+          formattedMsg = msgArray.join(' ');
+        }
+        return formattedMsg;
       };
 
       // update identity panel to display owner of current timeline
@@ -66,7 +96,8 @@
         $(document).find('#identity-name').text(user);
         $(document).find('#identity-handle').text('@' + user);
         $(document).find('#big-avatar').attr('src', 'graphics/' + user + '.jpg');
-      }
+        $(document).find('#identity-bg').attr('src', 'graphics/' + user + 'BG.jpg');
+      };
 
       $('#twit').on('mouseenter', function() {
         $(this).css('cursor', 'pointer');
@@ -100,6 +131,11 @@
         var user = $(this).text();
         switchIdentity(user);
         loadTweets(user);
+      });
+
+      $(document).on('mouseenter', '.handle', function() {
+        $(this).css('cursor', 'pointer');
+        $(this).closest('.tweet').find('.username a').removeClass('.username a:link').addClass('.username a:hover');
       });
 
       $(document).on('click', '.handle', function() {

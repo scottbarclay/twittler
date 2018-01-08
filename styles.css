@@ -100,6 +100,11 @@ p {
   float: left;
 }
 
+#timeline button:focus{
+  border-color: transparent;
+  outline: none;
+}
+
 #refresh {
   background-color: #f2f5f6;
   border: none;
@@ -110,7 +115,7 @@ p {
   width: 100%;
 }
 
-#refresh:hover {
+#refresh:hover, {
   background-color: #d9dddf;
 }
 
@@ -124,16 +129,34 @@ p {
   width: 186px;
 }
 
+h3 {
+  font-size: 18px;
+  line-height: 18px;
+  margin: 0px;
+}
+
+.sidebar-content {
+  position: relative;
+  top: 20px;
+  background-color: transparent;
+  padding: 0px 15px 15px 15px;
+}
+
 #identity h3 {
   line-height: 18px;
-  margin: 5px 0px 0px;
+  margin: 10px 0px 0px;
 }
 
 #photo {
   position: relative;
-  background-color: #1da1f2;
+  background-color: #0f0f0f;
   width: 100%;
   height: 100px;
+}
+
+#photo img {
+  float: right;
+  margin: 10px 50px auto auto;
 }
 
 #me {
@@ -172,7 +195,15 @@ p {
   text-decoration: none;
 }
 
-.username a:hover, .username a:active {
+.hashtag a:link, .hashtag a:visited,
+.mention a:link, .mention a:visited {
+  color: #1DA1F2;
+  text-decoration: none;
+}
+
+.username a:hover, .username a:active,
+.hashtag a:hover, .hashtag a:active, 
+.mention a:hover, .mention a:active {
   color: #1DA1F2;
   text-decoration: underline;
 }
