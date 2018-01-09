@@ -196,19 +196,31 @@
         loadTweets(user);
       });
 
-      // change tweet list based on trend clicked
-      $(document).on('click', '#trends a', function() {
+      // helper to filter tweet list
+      var filterTweets = function(string) {
         var user;
-        if(this.textContent.startsWith('@')) {
-          user = this.textContent.substring(1);
+        if(string.startsWith('@')) {
+          user = string.substring(1);
           switchIdentity(user);
           loadTweets(user);
         } else {
           user = 'yourstruly';
-          var tagFilter = this.textContent;
+          var tagFilter = string;
           switchIdentity();
           loadTweets(user, tagFilter);
-        }
+        }        
+      };
+
+      // change tweet list based on tweet hashtag clicked
+      $(document).on('click', '.hashtag', function() {
+        var tag = this.textContent;
+        filterTweets(tag);
+      });
+
+      // change tweet list based on trend clicked
+      $(document).on('click', '#trends a', function() {
+        var tag = this.textContent;
+        filterTweets(tag);
       });
 
       $(document).ready(function() {
