@@ -20,6 +20,7 @@
         <div id="trending">
           <div class="sidebar-content">
             <h3>Trends for you</h3>
+            <div id="trends"></div>
           </div>
         </div>
       </div>
@@ -43,6 +44,9 @@
     <script>
 
       var loadTweets = function(user) {
+        //debugger;
+        $('#trends').empty();
+        var tagArray = [];
         user === 'yourstruly' ? user = undefined : user = user;
         var $body = $('body');
         $('#timeline').children().remove();
@@ -55,37 +59,76 @@
           // friendly relative dates
           var relDate = moment(tweet.created_at).fromNow();
           // handle hashtags and mentions
-          var formattedMessage = formatMessage(tweet.message);
+          var message = tweet.message;
+          if(!message.includes('#') && !message.includes('@')) {
+            var formattedMessage = message;
+          } else {
+            var formatted = formatMessage(tweet.message);
+            tagArray.push(formatted[0]);
+            formattedMessage = formatted[1];
+          } 
           var $tweet = $('<div class="tweet"><div class="avatar"><img src="graphics/' + tweet.user + '.jpg"></div><div class="tweet-content"><p><span class="username"><a href="#">' + tweet.user + '<\/a><\/span><span class="handle"> @' + tweet.user + '<\/span>' +
             '<span class="timestamp">' + ' \xB7 ' + relDate + '<\/span><\/br><span>' + 
             formattedMessage + '<\/span><\/p><\/div><\/div>');
+          // add occurrance of tweet.user to list of tags for later sorting by frequency
+          tagArray.push('<\/span><span class="hashtag"><a href="#">@' + tweet.user + '<\/a><\/span>');
           $tweet.appendTo(($body).find('#timeline'));
           index -= 1;
         }
+        // send tags for sorting and listing in Trends sidebar
+        populateTrends(tagArray);
       };
 
+      // format hashtags and mentions within messages
       var formatMessage = function(message) {
         var formattedMsg = '';
         var hashtagPrefix = '<\/span><span class="hashtag"><a href="#">';
         var mentionPrefix = '<\/span><span class="mention"><a href="#">';
         var suffix = '<\/a><\/span>';
-        if(!message.includes('#') && !message.includes('@')) {
-          return message;
-        } else {
+        var trend = '';
+        // keep a list of all tag occurrances
+        var tagMsgArray = [];
           var msgArray = message.split(' ');
           for(var i = 0; i < msgArray.length; i++) {
             var word = msgArray[i];
             if(word.startsWith('#')) {
               var hashWord = hashtagPrefix + word + suffix;
-              msgArray.splice(i, 1, hashWord);              
+              msgArray.splice(i, 1, hashWord);
+              trend = '<p class="trend"><a href="#">' + hashWord + '<\/a><\/p>';
+              tagMsgArray.push(hashWord);              
             } else if(word.startsWith('@')) {
               var mentionWord = mentionPrefix + word + suffix;
               msgArray.splice(i, 1, mentionWord);
+              trend = '<p class="trend"><a href="#">' + mentionWord + '<\/a><\/p>';
+              tagMsgArray.push(mentionWord);
             }            
           }
           formattedMsg = msgArray.join(' ');
+          tagMsgArray.push(formattedMsg);
+        return tagMsgArray;
+      };
+
+      // put a list of tags sorted by frequency in the Trends sidebar
+      var populateTrends = function(array) {
+        //find the counts of each element
+        var counts = array.reduce(function (obj, val) {
+          obj[val] = (obj[val] || 0) + 1;
+          return obj;
+        }, {});
+        // Use the keys of the object to get all the values of the array
+        // and sort those keys by their counts
+        var sorted = Object.keys(counts).sort(function(a, b) {
+          return counts[b] - counts[a];
+        });
+        var i = 0;
+        var trend = '';
+        while(i <= sorted.length) {
+          if(sorted[i] !== undefined) {
+            trend = '<p class="trend">' + sorted[i] + '<\/p>';
+            $('#trends').append(trend);
+          }          
+          i++;
         }
-        return formattedMsg;
       };
 
       // update identity panel to display owner of current timeline
@@ -146,6 +189,7 @@
 
       $(document).ready(function() {
         var $body = $('body');
+        var tagArray = [];
         switchIdentity();
         loadTweets();
       });

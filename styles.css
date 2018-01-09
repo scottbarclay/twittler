@@ -181,6 +181,12 @@ h3 {
   height: 400px;
 }
 
+#trends p {
+  font-size: 1.05em;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
 #followrecs {
   background-color: #ffffff;
   height: 300px;
