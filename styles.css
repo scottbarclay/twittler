@@ -209,7 +209,8 @@ h3 {
 
 .username a:hover, .username a:active,
 .hashtag a:hover, .hashtag a:active, 
-.mention a:hover, .mention a:active {
+.mention a:hover, .mention a:active,
+#trends a:hover, #trends a:active {
   color: #1DA1F2;
   text-decoration: underline;
 }
